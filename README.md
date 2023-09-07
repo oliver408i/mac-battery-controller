@@ -14,20 +14,20 @@ The above program does contain a GUI app for controlling the battery (a wrapper 
 <img width="551" alt="image" src="https://github.com/oliver408i/mac-battery-controller/assets/75344601/ea7db501-6e93-4c65-b6b3-b501f8c6812a">
 
 ## Building
-**Requirements**
+**Requirements**    
 You need py2app and create-dmg to build this yourself. Of course, you also need Python3. I used Python 3.10 but 3.8+ should work fine.   
 Make sure setuptools is installed (it comes with most recent Python3 versions). Brew is required for create-dmg, but you can just download the pre-built binary from its github and put it in the same folder.
 ```
 pip3 install -U py2app
 brew install create-dmg
 ```
-**Build the app (DevMode)**
+**Build the app (DevMode)**    
 To test the app without making a dmg or bundling Python, do
 ```
 python3 setup.py py2app
 ```
 and say "y" for the devmode question and put down a version number. Find the built app in `dist`   
-**Build the app (Production)**
+**Build the app (Production)**    
 Do
 ```
 python3 setup.py py2app
