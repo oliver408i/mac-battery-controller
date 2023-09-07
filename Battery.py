@@ -34,11 +34,14 @@ class BatteryControlApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Battery Control")
+        self.root.protocol("WM_DELETE_WINDOW", self.onClose)
+        root.createcommand("tk::mac::Quit" , self.onClose)
 
         menubar = tk.Menu(root)
         filemenu = tk.Menu(menubar, tearoff=0)
         root.config(menu=menubar)
-        
+
+        self.isStopped = False
 
         self.status_label = tk.Label(root, text="Battery Status: Unknown")
         self.status_label.pack(pady=10,padx=10)
@@ -62,7 +65,7 @@ class BatteryControlApp:
         self.input_field.pack()
 
         self.buttons_frame = tk.Frame(root)
-        self.buttons_frame.pack(pady=10)
+        self.buttons_frame.pack(pady=20,padx=20)
 
         self.charge_button = tk.Button(self.buttons_frame, text="Charge", command=self.charge_battery)
         self.discharge_button = tk.Button(self.buttons_frame, text="Discharge", command=self.discharge_battery)
@@ -82,6 +85,12 @@ class BatteryControlApp:
 
         self.update_status()
 
+    def onClose(self):
+        self.stop_all_processes()
+        if tkinter.messagebox.askokcancel("", "All operations will be stopped"):
+            root.destroy()
+        
+    
     def isValid(self, P):
         return str.isdigit(P) and 0 < int(P) and int(P) <= 100
 
@@ -145,7 +154,9 @@ class BatteryControlApp:
         self.update_status(False)
 
     def stop_all_processes(self):
+        
         if hasattr(self, 'process') and self.process:
+            self.isStopped = True
             self.process.terminate()  # Terminate the subprocess
             self.enable_buttons()  # Enable buttons
 
@@ -176,7 +187,7 @@ class BatteryControlApp:
     def update_log_text(self):
         while True:
             line = self.process.stdout.readline()
-            if not line:
+            if self.isStopped:
                 break
             self.log_text.config(state="normal")  # Set state to normal to update log
             self.log_text.insert(tk.END, line)
@@ -186,6 +197,9 @@ class BatteryControlApp:
 
     def check_process_status(self):
         while True:
+            if self.isStopped:
+                self.isStopped = False
+                break
             return_code = self.process.poll()
             if return_code is not None:
                 self.enable_buttons()
