@@ -8,6 +8,7 @@ Usage:
 from setuptools import setup
 import os, sys, shutil
 
+# Setup/user input
 if "-A" in sys.argv:
     devBuild = True
 else:
@@ -15,9 +16,15 @@ else:
 
 version = input("Version string: ")
 
-shutil.rmtree("dist")
-shutil.rmtree("build")
+# Remove old build files
+try:
+    shutil.rmtree("dist")
+    shutil.rmtree("build")
+    os.remove("Battery Control.dmg")
+except:
+    pass
 
+# Build the app with py2app
 APP = ['Battery.py']
 DATA_FILES = []
 OPTIONS = {
@@ -38,7 +45,9 @@ setup(
     setup_requires=['py2app'],
 )
 
-os.rename("dist/Battery.app",f"dist/Battery {version}.app")
+# Debugging purposes
+#os.rename("dist/Battery.app",f"dist/Battery {version}.app")
 
+# Make the dmg
 if not devBuild:
-    os.system("""create-dmg --volname "Battery Control" --volicon "icon.icns" "Battery Control.dmg" "dist" """)
+    os.system("""create-dmg --volname "Battery Control" --volicon "icon.icns" --window-pos 200 120 --window-size 800 400 --icon-size 100 --icon "Battery.app" 200 190 --hide-extension "Battery.app" --app-drop-link 600 185 "Battery Control.dmg" "dist" """)
