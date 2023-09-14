@@ -14,7 +14,8 @@ System Settings > Battery > i symbol next to Battery Health > Optimized Battery 
 - Enter any targeted percentage
 - Charge and discharge to any percentage
 - Maintain the battery at any percentage
-- Enable and disable battery charging
+- Enable and disable battery charging via GUI and menubar
+- Enable and disable adapter power via menubar
 <img width="551" alt="image" src="https://github.com/oliver408i/mac-battery-controller/assets/75344601/ea7db501-6e93-4c65-b6b3-b501f8c6812a">
 
 ## Building
