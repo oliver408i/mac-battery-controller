@@ -4,6 +4,10 @@ The above program does contain a GUI app for controlling the battery (a wrapper 
   
 **Download in Releases**
   
+⚠️ **Make sure to disable Apple's optimized charging!** ⚠️   
+System Settings > Battery > i symbol next to Battery Health > Optimized Battery Charging > off    
+(it will override the app sometimes and cause other issues)   
+
 ## GUI Features
 - Displays the battery charging state
 - Output log directly from the CLI
@@ -38,3 +42,4 @@ Wait until everything is done. The production app is in `dist` and the dmg shoul
 ## Credits
 Of course, this would never be possible without [battery](https://github.com/actuallymentor/battery)! Thanks to actuallymentor for making this excellent program!   
 This app is made in Python 3.10 and compiled using [py2app](https://github.com/ronaldoussoren/py2app) and the DMGs are made with [create-dmg](https://github.com/create-dmg/create-dmg)
+

@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, Menu
 import tkinter.messagebox
 import subprocess
 import threading
@@ -10,8 +10,8 @@ class InstallFrame:
         self.root = root
         self.root.title("Battery Installation")
 
-        menubar = tk.Menu(root)
-        filemenu = tk.Menu(menubar, tearoff=0)
+        menubar =Menu(root)
+        filemenu = Menu(menubar, tearoff=0)
         root.config(menu=menubar)
 
         ttk.Style().configure("active.TButton", foreground="white")
@@ -37,8 +37,16 @@ class BatteryControlApp:
         self.root.protocol("WM_DELETE_WINDOW", self.onClose)
         root.createcommand("tk::mac::Quit" , self.onClose)
 
-        menubar = tk.Menu(root)
-        filemenu = tk.Menu(menubar, tearoff=0)
+        menubar = Menu(root)
+        battery = Menu(menubar,tearoff=0)
+        menubar.add_cascade(label ='Battery', menu = battery)
+        battery.add_command(label="Enable charging",command=self.enable_charging)
+        battery.add_command(label="Disable charging",command=self.disable_charging)
+        adapter = Menu(menubar,tearoff=0)
+        menubar.add_cascade(label="Adapter",menu=adapter)
+        adapter.add_command(label="Enable adapter power",command=lambda: self.run_command(["/usr/local/bin/battery", "adapter", "on"]))
+        adapter.add_command(label="Disable adapter power",command=lambda: self.run_command(["/usr/local/bin/battery", "adapter", "off"]))
+
         root.config(menu=menubar)
 
         self.isStopped = False
