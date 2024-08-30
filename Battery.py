@@ -65,8 +65,12 @@ class BatteryControlApp:
         self.clear_log_button = tk.Button(root, text="Clear Log", command=self.clear_log)
         self.clear_log_button.pack()
 
-        self.input_label = tk.Label(root, text="Enter target percentage:")
+        self.input_label = tk.Label(root, text="Enter target percentage (Upper bound):")
         self.input_label.pack()
+
+        self.aux_input_label = tk.Label(root, text="Enter sailing mode Lower bound:")
+        self.aux_input_label.pack()
+
 
         self.input_field = tk.Entry(root)
         self.input_field.insert(0, "80")
@@ -202,6 +206,8 @@ class BatteryControlApp:
             self.log_text.see(tk.END)
             self.log_text.config(state="disabled")  # Set state back to disabled
             time.sleep(0.1)
+
+
 
     def check_process_status(self):
         while True:

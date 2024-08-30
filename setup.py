@@ -34,7 +34,8 @@ OPTIONS = {
             "CFBundleGetInfoString": "MacOS Battery Control GUI",
             "CFBundleShortVersionString":version,
             "CFBundleVersion":version,
-            "NSHumanReadableCopyright":"Copyright (c) © 2023"
+            "NSHumanReadableCopyright":"Copyright oliver408i (c) © 2023",
+            "CFBundleIdentifier":"tech.rufan.batteryapp"
         }
 }
 
